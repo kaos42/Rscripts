@@ -1,0 +1,13 @@
+https://www.quora.com/What-are-some-of-the-best-practices-for-data-cleaning
+
+http://www.ats.ucla.edu/stat/sas/library/nesug99/ss123.pdf
+
+https://github.com/dataproofer/Dataproofer#getting-started
+
+https://www.datacamp.com/courses/cleaning-data-in-r
+
+https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf
+
+https://journal.r-project.org/archive/2010-2/RJournal_2010-2_Wickham.pdf
+
+https://github.com/hadley/lubridate
