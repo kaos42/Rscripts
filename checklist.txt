@@ -1,0 +1,10 @@
+Misc checklist
+
+Data consistency:
+- Use editrules, assertr, validate to perform consistency checks between columns. This should be done before imputation.
+
+Joins:
+- always do a sanity check after joining tables. Compare nrows of tables before and after join
+
+Fuzzy strings:
+- use string distance for approximate matching. https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf

@@ -1,0 +1,16 @@
+Things to check
+
+data table: 
+- return rows where any of the columns match a pattern
+- replace all occurances of a pattern with something. eg. "" to NA
+
+dplyr:
+- apply functions to rows. Check if any col has NA
+
+mice:
+- multiple imputation with missing categorical predictors
+- try fitting a logistic regression model after imputation
+
+tidyr:
+- check out spread and separate
+

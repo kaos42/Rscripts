@@ -9,6 +9,8 @@
 # assertr: Alternative to validate. Throws errors.
 #          https://cran.r-project.org/web/packages/assertr/vignettes/assertr.html
 
+# editrules: Another alternative
+
 ## bad column names: package janitor.
 roster <- roster_raw %>%
   clean_names() %>%
@@ -19,8 +21,16 @@ roster <- roster_raw %>%
 ## explore duplicate rows: package janitor
 roster %>% get_dupes(first_name, last_name)
 #####################################################################
-## use validate for sanity checking
-# quick checks
+## sanity checking
+## editrules
+dat <- fread('C:/Users/Ved/Documents/GitHub/Rscripts/people.csv')
+E <- editfile('C:/Users/Ved/Documents/GitHub/Rscripts/rules_example.txt')
+ve <- violatedEdits(E, dat)
+# which records have at least one violation?
+which(apply(ve, 1, any))
+summary(ve)
+plot(ve)
+## alternative: validate
 women %>% 
   check_that(height > 0, weight > 0, height/weight > 0.5) %>% 
   summary()
@@ -38,6 +48,8 @@ v <- validator(
 )
 # view results by observation
 aggregate(cf,by='record')
+# can try to just see failed records by
+cf %>% aggregate(by='record') %>% filter(nfail > 0)
 
 ## alternative: use assertr
 # verify
@@ -64,7 +76,7 @@ mtcars %>%
   ...
 # multivariate outlier checking with maha_dist and insist_rows
 # works with factors too
-example.data %>%
+mtcars %>%
   insist_rows(maha_dist, within_n_mads(3), everything())
 # chains of assertions
 check_me <- . %>%
@@ -76,4 +88,22 @@ check_me <- . %>%
 mtcars %>%
   check_me %>% ...
 
+#####################################################################
+## Missing data: http://rstudio-pubs-static.s3.amazonaws.com/4625_fa990d611f024ea69e7e2b10dd228fe7.html
+
+#####################################################################
+## coersion post fread
+# if coercion to char took place, then probably some entires are errors 
+#   and the col is actually numeric
+janitor::tabyl(dat$v1)
+# Values like "1.1K" are present. Catch row numbers then with regex
+badids <- which(str_detect(dat$v5, "K"))
+# and fix
+fixed <- str_replace(str_replace(dat$v5[badids], "\\.", ""), "K","00")
+dat[badids, v5:=fixed]
+# now coerce v5 to numeric
+dat[, v5:=as.numeric(v5)]
+#####################################################################
+## tidy data
+# see vignette
 #####################################################################
